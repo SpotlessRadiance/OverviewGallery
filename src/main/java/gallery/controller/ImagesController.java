@@ -40,15 +40,12 @@ public class ImagesController {
     @GetMapping("/show/{imgId}")
     public String showImage(@PathVariable Long imgId, Model model){
         Image img =  imagesService.getImageById(imgId);
-        //prevImg, nextImg = imagesService.getImagePrevNext(imgId);
         model.addAttribute("image",img);
         return "view";
     }
 
     @GetMapping("/search")
     public String uploadSearchSimilar(Model model){
-       // Image image = imagesService.getImageById(id);
-       // model.addAttribute("image", image);
         return "search.html";
     }
 
@@ -115,55 +112,3 @@ public class ImagesController {
         return "gallery";
     }
 }
-
-/*
-public ResponseEntity<Photo> createPhoto(@Valid @RequestBody Photo photo) throws Exception {
-        log.debug("REST request to save Photo : {}", photo);
-        if (photo.getId() != null) {
-            throw new BadRequestAlertException("A new photo cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-
-        try {
-            photo = setMetadata(photo);
-        } catch (ImageProcessingException ipe) {
-            log.error(ipe.getMessage());
-        }
-
-        Photo result = photoRepository.save(photo);
-        return ResponseEntity.created(new URI("/api/photos/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-
-    private Photo setMetadata(Photo photo) throws ImageProcessingException, IOException, MetadataException {
-        String str = DatatypeConverter.printBase64Binary(photo.getImage());
-        byte[] data2 = DatatypeConverter.parseBase64Binary(str);
-        InputStream inputStream = new ByteArrayInputStream(data2);
-        BufferedInputStream bis = new BufferedInputStream(inputStream);
-        Metadata metadata = ImageMetadataReader.readMetadata(bis);
-        ExifSubIFDDirectory directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
-
-        if (directory != null) {
-            Date date = directory.getDateDigitized();
-            if (date != null) {
-                photo.setTaken(date.toInstant());
-            }
-        }
-
-        if (photo.getTaken() == null) {
-            log.debug("Photo EXIF date digitized not available, setting taken on date to now...");
-            photo.setTaken(Instant.now());
-        }
-
-        photo.setUploaded(Instant.now());
-
-        JpegDirectory jpgDirectory = metadata.getFirstDirectoryOfType(JpegDirectory.class);
-        if (jpgDirectory != null) {
-            photo.setHeight(jpgDirectory.getImageHeight());
-            photo.setWidth(jpgDirectory.getImageWidth());
-        }
-
-        return photo;
-    }
-https://github.com/oktadeveloper/okta-react-photo-gallery-example/blob/master/src/main/java/com/okta/developer/web/rest/PhotoResource.java
- */
