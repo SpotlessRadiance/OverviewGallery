@@ -1,0 +1,15 @@
+<header th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="topnav">
+        <a th:href="@{/}">OverviewGallery</a>
+        <a th:href="@{/search}">Поиск по фото</a>
+        <a th:href="@{/upload}">Загрузить фото</a>
+        <form class="search-form" action="/search-by-name/image" method="get">
+           <input name="text" class="search-input" placeholder="Искать по названию" type="search">
+           <!-- <button type="submit">Поиск</button>-->
+        </form>
+        <a sec:authorize="isAnonymous()" th:href="@{/register}">Регистрация</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}">Вход</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Выйти</a>
+
+    </div>
+</header>

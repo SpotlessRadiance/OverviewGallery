@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:include="fragments/head"></head></head>
+
+<body th:style="'background-image:url(' + @{/img/wood.jpg} + '); '">
+
+<header th:include="fragments/header"></header>
+<div class="wall">
+<form class="form-upload" method="POST" th:action="@{/search}" id="form-input" enctype="multipart/form-data">
+    <p class="inputError" th:text="${error} != null ? #{${error}}"></p>
+    <p class="inputSuccess" th:text="${success} != null ? #{${success}}"></p>
+        <div class="input-container">
+            <input id="file-input-upl" type="file" name="file" required>
+            <label for="file-input-upl">Выберите файл или перетащите его сюда</label>
+        </div>
+    <div th:if="${image} != null">
+        <img align="center" width="400" height="400" id="uploaded-image"
+             th:src="${image} != null ?
+                     @{'data:image/png;base64,' + ${image.to64encode()}} :
+                     @{img/black.jpg}"
+             alt="uploaded-image"/>
+    </div>
+    <div class="form-group">
+        <a class="btn btn-success" th:href="@{/search}">Очистить</a>
+        <input type="submit" class="btn btn-success" value="Поиск"/>
+    </div>
+</form>
+
+    <div class="wall-header"><h4>Поиск похожих</h4></div>
+    <div th:if="${similar != null and similar.size()==0}">
+        <div class="alert alert-danger">Ничего похожего мы не нашли!</div>
+    </div>
+<div class="gallery-rows" th:if="${similar} != null" th:each="picture: ${similar}">
+    <div class="image-card">
+        <a th:href="@{/show/__${picture.getId()}__}">
+        <img align="center"
+             th:src="@{'data:image/png;base64,' + ${picture.to64encode()}}"/>
+        </a>
+        <!--  th:alt="${picture.getTitle()}" <h3 th:text="${picture.getTitle()}"></h3>-->
+    </div>
+</div>
+</div>
+</body>
+</html>

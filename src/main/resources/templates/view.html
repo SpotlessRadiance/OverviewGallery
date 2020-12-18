@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:include="fragments/head"></head>
+
+
+<body th:style="'background-image:url(' + @{/img/wood.jpg} + '); background-repeat: no_repeat; '">
+<header th:include="fragments/header"></header>
+<div class="wall">
+    <img class="content_img" width="400" height="400" th:src="@{'data:image/png;base64,' + ${image.to64encode()}}"/>
+    <div class="well">
+        <div class="picture-title" th:text="${image.getTitle()}"></div>
+        <div class="picture-author" th:text="'Автор: '+${image.getAuthor().getLogin()}"></div>
+    </div>
+    <center><a th:href="@{/search/__${image.getId()}__}" class="btn btn-success">Найти похожие</a></center>
+</div>
+</div>
+<hr>
+</body>
+</html>

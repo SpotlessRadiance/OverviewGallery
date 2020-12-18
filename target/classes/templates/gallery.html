@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:include="fragments/head"></head>
+<body th:style="'background-image:url(' + @{/img/wood.jpg} + ');'">
+<header th:include="fragments/header"></header>
+<div class="wall">
+    <div class="wall-header"><h3 th:text="${header}"></h3></div>
+<div class="masonry-layout">
+    <div class="masonry-layout__panel" th:each="image: ${images}">
+        <div class="masonry-layout__panel-content">
+            <a th:href="@{/show/__${image.getId()}__}">
+                <img th:src="@{'data:image/png;base64,' + ${image.to64encode()}}"/></a>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

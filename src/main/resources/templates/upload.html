@@ -1,0 +1,37 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:include="fragments/head"></head></head>
+
+<body th:style="'background-image:url(' + @{/img/wood.jpg} + '); background-repeat: no_repeat; '">
+<header th:include="fragments/header"></header>
+    <div class="wall">
+        <form class="form-upload" method="POST" th:action="@{/upload}" action="/upload" th:object="${picture}" id="form-input"
+                                            enctype="multipart/form-data">
+            <p class="inputError" th:text="${error} != null ? Ошибка"></p>
+            <p class="inputSuccess" th:text="${success} != null ? Загружено"></p>
+            <fieldset>
+                <div class="input-container">
+                    <input id="file-input" type="file" name="file" required>
+                    <label for="file-input">Выберите файл или перетащите его сюда</label>
+                </div>
+              <img align="center" width="400" height="400" id="uploaded-img"
+                   th:src="${uploadedImage} != null ?
+                     @{'data:image/png;base64,' + ${uploadedImage.to64encode()}} :
+                     @{img/black.jpg}"
+                     alt="uploaded-image"/>
+                  <div class="text-info-group">
+                      <input type="text" id="title-input" class="stylish" required th:placeholder="Название" th:field="*{title}"/>
+                      <div class="separator"></div>
+                </div>
+
+            </fieldset>
+            <div class="form-group">
+                <a class="btn btn-success" onclick="cancel()" id="cancel-button">Очистить</a>
+                <input type="submit" class="btn btn-success" value="Загрузить"/>
+            </div>
+        </form>
+    </div>
+<hr>
+</body>
+</html>

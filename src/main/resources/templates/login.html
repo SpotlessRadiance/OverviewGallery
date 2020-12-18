@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:include="fragments/head"></head></head>
+
+<body th:style="'background-image:url(' + @{/img/wood.jpg} + '); background-repeat: no_repeat; '">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">OverviewGallery</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<!--<div class = "container">-->
+<div class="wall">
+    <div class = "row">
+        <div class = "col-md-6 col-md-offset-3">
+
+            <div class="wall-header"><h3>Страница входа</h3></div>
+            <form th:action="@{/login}" method="post">
+
+                <!-- error message -->
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Неправильный логин или пароль</div>
+                </div>
+
+
+                <div class = "form-group">
+                    <label class="control-label" for ="login"> Логин </label> :
+                    <input type="text" class = "form-control" id ="login" name = "login"
+                           placeholder="Введите логин" autofocus="autofocus" autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="control-label">Пароль</label>:
+                    <input type="password" id="password" name="password" class="form-control"
+                                                                   placeholder="Введите пароль" />
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" name="login-submit" id="login-submit" class="form-control btn btn-enter" value="Вход" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group">
+                <span>Новый пользователь? <a href="/" th:href="@{/register}">Зарегистрироваться</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
