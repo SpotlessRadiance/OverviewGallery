@@ -48,23 +48,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/register").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
-                //.antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/upload").authenticated()
-                // hasRole("USER")
-                //Доступ разрешен всем пользователей
-               // .antMatchers("/", "/resources/**").permitAll()
-                //Все остальные страницы требуют аутентификации
                 .anyRequest().permitAll()//.authenticated()
                 .and()
-                //Настройка для входа в систему
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("login")
                 .passwordParameter("password")
-                //Перенарпавление на главную страницу после успешного входа
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
@@ -81,9 +72,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
-
-  /*  @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(cryptPasswordEncoder());
-    }*/
 }
